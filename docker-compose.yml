@@ -1,0 +1,22 @@
+version: '3'
+services:
+    web:
+      build: #if we want to use the default Dockerfile, we just add .
+        context: . #Current folder or context to look for the file
+        dockerfile: Dockerfile.dev #Docker file
+      ports:
+        - "3000:3000"
+      volumes: 
+        - /app/node_modules #DO NOT map this folder
+        - .:/app #map everything inside the folder to the app folder on the docker server
+    tests:
+      build:
+        context: .
+        dockerfile: Dockerfile.dev
+      volumes: 
+        - /app/node_modules #DO NOT map this folder
+        - .:/app #map everything inside the folder to the app folder on the docker server
+      command: ["npm","run", "test"]
+
+      
+
